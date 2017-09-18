@@ -130,14 +130,14 @@ var _ = Describe("nfsbroker Main", func() {
 			logger = lagertest.NewTestLogger("test-broker-main")
 		})
 		JustBeforeEach(func() {
-			env:=fmt.Sprintf(`
+			env := fmt.Sprintf(`
 				{
 					"postgresql":[
 						{
 							"credentials":{
 								"dbType":"postgresql",
-								"hostname":"8.8.8.8",
-								"name":"foo",
+								"host":"8.8.8.8",
+								"db_name":"foo",
 								"password":"foo",
 								"port":%s,
 								"uri":"postgresql://foo:foo@8.8.8.8:9999/foo",
@@ -155,8 +155,8 @@ var _ = Describe("nfsbroker Main", func() {
 							"volume_mounts":[]
 						}
 					]
-				}`,port)
-			fakeOs.LookupEnvReturns(env,true)
+				}`, port)
+			fakeOs.LookupEnvReturns(env, true)
 		})
 
 		Context("when port is a string", func() {

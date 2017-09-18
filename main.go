@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 
 	"encoding/json"
+
 	"github.com/go-sql-driver/mysql"
 	"github.com/lib/pq"
 	"github.com/pivotal-cf/brokerapi"
@@ -179,11 +180,11 @@ func parseVcapServices(logger lager.Logger, os osshim.Os) {
 
 	dbUsername = credentials["username"].(string)
 	dbPassword = credentials["password"].(string)
-	*dbHostname = credentials["hostname"].(string)
+	*dbHostname = credentials["host"].(string)
 	if *dbPort, ok = credentials["port"].(string); !ok {
 		*dbPort = fmt.Sprintf("%.0f", credentials["port"].(float64))
 	}
-	*dbName = credentials["name"].(string)
+	*dbName = credentials["db_name"].(string)
 }
 
 func createServer(logger lager.Logger) ifrit.Runner {
